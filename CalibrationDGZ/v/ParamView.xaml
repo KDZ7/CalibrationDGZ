@@ -15,11 +15,12 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
                        Margin="10"
                        Text="Serial Communication"
-                       FontSize="24"
+                       FontSize="16"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" />
@@ -93,8 +94,14 @@
                                  ItemsSource="{Binding ItemsSourceParity}"
                                  SelectedItem="{Binding SelectedItemParity}" />
             </StackPanel>
+            <mah:ToggleSwitch Grid.Row="2"
+                              Margin="5"
+                              OnContent="Connected"
+                              OffContent="Not connected"
+                              HorizontalAlignment="Center"
+                              IsOn="{Binding ConnectedIsOn}" />
             <!-- Separator Line -->
-            <Border Grid.Row="2"
+            <Border Grid.Row="3"
                     BorderBrush="Black"
                     BorderThickness="0,1,0,0"
                     Margin="0,10,0,10"
@@ -105,13 +112,15 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <!-- Section Calibration -->
             <StackPanel Grid.Column="0"
+                        Margin="5"
                         Orientation="Vertical">
                 <TextBlock Margin="10"
                            Text="Calibration"
-                           FontSize="24"
+                           FontSize="16"
                            FontWeight="Bold"
                            HorizontalAlignment="Center" />
                 <mah:ToggleSwitch OnContent="ON"
@@ -144,10 +153,11 @@
             </StackPanel>
             <!-- Section Body Position (dX, dY, dZ) -->
             <StackPanel Grid.Column="1"
+                        Margin="5"
                         Orientation="Vertical">
                 <TextBlock Margin="10"
                            Text="Body position"
-                           FontSize="24"
+                           FontSize="16"
                            FontWeight="Bold"
                            HorizontalAlignment="Center" />
                 <!-- dX Slider and Hex Display -->
@@ -200,63 +210,316 @@
                     <TextBlock Text="{Binding Path=Value, ElementName=HexSliderZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
                                HorizontalAlignment="Center" />
                 </StackPanel>
+                <!-- dRX Slider and Hex Display -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="dRX"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderRX"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dRX}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderRX, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- dRY Slider and Hex Display -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="dRY"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderRY"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dRY}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderRY, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- dRZ Slider and Hex Display -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="dRZ"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderRZ"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dRZ}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderRZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
             </StackPanel>
             <!-- Section Speed Control (Forward/Backward and Left/Right) -->
-            <StackPanel Grid.Column="2"
-                        Orientation="Vertical">
-                <TextBlock Margin="10"
-                           Text="Speed Control"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center" />
-                <!-- Forward and Backward Speed Slider -->
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Forward/Backward"
+                <StackPanel Grid.Column="2"
+                            Margin="5"
+                            Orientation="Vertical">
+                    <TextBlock Margin="10"
+                               Text="Speed Control"
+                               FontSize="16"
+                               FontWeight="Bold"
                                HorizontalAlignment="Center" />
-                    <Slider x:Name="HexSliderVX"
-                            Minimum="0"
-                            Maximum="255"
-                            Value="{Binding dVX}"
-                            Width="200"
-                            TickFrequency="1"
-                            IsSnapToTickEnabled="True"
-                            HorizontalAlignment="Center"
-                            Cursor="ScrollWE" />
-                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVX, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
-                               HorizontalAlignment="Center" />
+                    <!-- Forward and Backward Speed Slider -->
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Forward/Backward"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderVX"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding dVX}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVX, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <!-- Left and Right Speed Slider -->
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="Left/Right"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderVY"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding dVY}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVY, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <!-- Rotation Speed Slider -->
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="Rotation"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderWZ"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding dWZ}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderWZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
                 </StackPanel>
-                <!-- Left and Right Speed Slider -->
+                <!-- Section Set Position of Steering Gear -->
+                <StackPanel Grid.Column="3"
+                            Margin="5"
+                            Orientation="Vertical">
+                    <TextBlock Margin="10"
+                               Text="Servomotor position"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center" />
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="ID 11"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID11"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID11}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID11, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 12"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID12"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID12}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID12, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 13"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID13"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID13}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID13, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 21"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID21"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID21}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID21, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 22"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID22"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID22}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID22, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 23"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID23"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID23}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID23, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 31"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID31"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID31}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID31, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 32"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID32"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID32}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID32, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 33"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID33"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID33}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID33, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 41"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID41"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID41}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID41, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Margin="0,10,0,0">
+                        <TextBlock Text="ID 42"
+                                   HorizontalAlignment="Center" />
+                        <Slider x:Name="HexSliderServoID42"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ServoID42}"
+                                Width="200"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                HorizontalAlignment="Center"
+                                Cursor="ScrollWE" />
+                        <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID42, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
                 <StackPanel Orientation="Vertical"
                             Margin="0,10,0,0">
-                    <TextBlock Text="Left/Right"
+                    <TextBlock Text="ID 43"
                                HorizontalAlignment="Center" />
-                    <Slider x:Name="HexSliderVY"
+                    <Slider x:Name="HexSliderServoID43"
                             Minimum="0"
                             Maximum="255"
-                            Value="{Binding dVY}"
+                            Value="{Binding ServoID43}"
                             Width="200"
                             TickFrequency="1"
                             IsSnapToTickEnabled="True"
                             HorizontalAlignment="Center"
                             Cursor="ScrollWE" />
-                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVY, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
-                               HorizontalAlignment="Center" />
-                </StackPanel>
-                <!-- Rotation Speed Slider -->
-                <StackPanel Orientation="Vertical"
-                            Margin="0,10,0,0">
-                    <TextBlock Text="Rotation"
-                               HorizontalAlignment="Center" />
-                    <Slider x:Name="HexSliderWZ"
-                            Minimum="0"
-                            Maximum="255"
-                            Value="{Binding dWZ}"
-                            Width="200"
-                            TickFrequency="1"
-                            IsSnapToTickEnabled="True"
-                            HorizontalAlignment="Center"
-                            Cursor="ScrollWE" />
-                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderWZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderServoID43, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
                                HorizontalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
@@ -269,7 +532,7 @@
         <Button Margin="0,0,0,10"
                 Padding="5"
                 Content="Save"
-                Command="{Binding SaveBtn}"
+                Command="{Binding Save}"
                 HorizontalAlignment="Center" />
     </StackPanel>
 </UserControl>

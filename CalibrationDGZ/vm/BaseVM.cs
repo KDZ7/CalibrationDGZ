@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-namespace modus.ViewModel
+namespace CalibrationDGZ.vm
 {
     public class BaseVM : TimerHdle, INotifyPropertyChanged
     {

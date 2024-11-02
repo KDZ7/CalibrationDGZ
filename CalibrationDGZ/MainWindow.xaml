@@ -8,8 +8,8 @@
                   xmlns:v="clr-namespace:CalibrationDGZ.v"
                   Title="CalibrationDGZ"
                   TitleCharacterCasing="Normal"
-                  Width="740"
-                  Height="500"
+                  Width="1000"
+                  Height="1000"
                   ResizeMode="NoResize"
                   WindowStartupLocation="CenterScreen">
     <Grid>
