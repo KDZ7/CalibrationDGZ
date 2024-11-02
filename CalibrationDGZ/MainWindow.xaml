@@ -1,0 +1,19 @@
+﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                  x:Class="CalibrationDGZ.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:local="clr-namespace:CalibrationDGZ"
+                  xmlns:v="clr-namespace:CalibrationDGZ.v"
+                  Title="CalibrationDGZ"
+                  TitleCharacterCasing="Normal"
+                  Width="740"
+                  Height="500"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterScreen">
+    <Grid>
+        <v:ParamView />
+    </Grid>
+</mah:MetroWindow>
+    

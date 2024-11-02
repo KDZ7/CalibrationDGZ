@@ -1,0 +1,275 @@
+﻿<UserControl x:Class="CalibrationDGZ.v.ParamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CalibrationDGZ.v"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:vm="clr-namespace:CalibrationDGZ.vm">
+    <UserControl.DataContext>
+        <vm:ParamVM />
+    </UserControl.DataContext>
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Margin="10"
+                       Text="Serial Communication"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBox Margin="5"
+                         Text="Port Serial:"
+                         FontSize="12"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Cursor="Arrow" />
+                <TextBox Width="80"
+                         Text="{Binding COMx}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                <TextBox Margin="5"
+                         Text="Baud Rate:"
+                         FontSize="12"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Cursor="Arrow" />
+                <TextBox Width="80"
+                         Text="{Binding BaudRate, UpdateSourceTrigger=PropertyChanged}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center" />
+                <TextBox Margin="5"
+                         Text="Data Bit:"
+                         FontSize="12"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Cursor="Arrow" />
+                <mah:SplitButton Width="40"
+                                 BorderThickness="0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 ItemsSource="{Binding ItemsSourceDataBit}"
+                                 SelectedItem="{Binding SelectedItemDataBit}" />
+                <TextBox Margin="5"
+                         Text="Stop bit:"
+                         FontSize="12"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Cursor="Arrow" />
+                <mah:SplitButton Width="50"
+                                 BorderThickness="0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 ItemsSource="{Binding ItemsSourceStopBit}"
+                                 SelectedItem="{Binding SelectedItemStopBit}" />
+                <TextBox Margin="5"
+                         Text="Parity:"
+                         FontSize="12"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsReadOnly="True"
+                         BorderThickness="0"
+                         Cursor="Arrow" />
+                <mah:SplitButton Width="60"
+                                 BorderThickness="0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 ItemsSource="{Binding ItemsSourceParity}"
+                                 SelectedItem="{Binding SelectedItemParity}" />
+            </StackPanel>
+            <!-- Separator Line -->
+            <Border Grid.Row="2"
+                    BorderBrush="Black"
+                    BorderThickness="0,1,0,0"
+                    Margin="0,10,0,10"
+                    HorizontalAlignment="Stretch" />
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <!-- Section Calibration -->
+            <StackPanel Grid.Column="0"
+                        Orientation="Vertical">
+                <TextBlock Margin="10"
+                           Text="Calibration"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center" />
+                <mah:ToggleSwitch OnContent="ON"
+                                  OffContent="OFF"
+                                  HorizontalAlignment="Center"
+                                  IsOn="{Binding CalibrationIsOn}" />
+                <TextBlock Margin="0,10,0,10"
+                           Text="Unloading steering gear"
+                           HorizontalAlignment="Center" />
+                <mah:ToggleSwitch Header="Leg 1"
+                                  OnContent="ON"
+                                  OffContent="OFF"
+                                  HorizontalAlignment="Center"
+                                  IsOn="{Binding Leg1IsOn}" />
+                <mah:ToggleSwitch Header="Leg 2"
+                                  OnContent="ON"
+                                  OffContent="OFF"
+                                  HorizontalAlignment="Center"
+                                  IsOn="{Binding Leg2IsOn}" />
+                <mah:ToggleSwitch Header="Leg 3"
+                                  OnContent="ON"
+                                  OffContent="OFF"
+                                  HorizontalAlignment="Center"
+                                  IsOn="{Binding Leg3IsOn}" />
+                <mah:ToggleSwitch Header="Leg 4"
+                                  OnContent="ON"
+                                  OffContent="OFF"
+                                  HorizontalAlignment="Center"
+                                  IsOn="{Binding Leg4IsOn}" />
+            </StackPanel>
+            <!-- Section Body Position (dX, dY, dZ) -->
+            <StackPanel Grid.Column="1"
+                        Orientation="Vertical">
+                <TextBlock Margin="10"
+                           Text="Body position"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center" />
+                <!-- dX Slider and Hex Display -->
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="dX"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderX"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dX}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderX, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- dY Slider and Hex Display -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="dY"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderY"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dY}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderY, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- dZ Slider and Hex Display -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="dZ"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderZ"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dZ}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+            <!-- Section Speed Control (Forward/Backward and Left/Right) -->
+            <StackPanel Grid.Column="2"
+                        Orientation="Vertical">
+                <TextBlock Margin="10"
+                           Text="Speed Control"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center" />
+                <!-- Forward and Backward Speed Slider -->
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Forward/Backward"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderVX"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dVX}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVX, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- Left and Right Speed Slider -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="Left/Right"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderVY"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dVY}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderVY, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+                <!-- Rotation Speed Slider -->
+                <StackPanel Orientation="Vertical"
+                            Margin="0,10,0,0">
+                    <TextBlock Text="Rotation"
+                               HorizontalAlignment="Center" />
+                    <Slider x:Name="HexSliderWZ"
+                            Minimum="0"
+                            Maximum="255"
+                            Value="{Binding dWZ}"
+                            Width="200"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            HorizontalAlignment="Center"
+                            Cursor="ScrollWE" />
+                    <TextBlock Text="{Binding Path=Value, ElementName=HexSliderWZ, Converter={StaticResource DecimalToHexConverter}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <!-- Separator Line -->
+        <Border BorderBrush="Black"
+                BorderThickness="0,1,0,0"
+                Margin="0,10,0,10"
+                HorizontalAlignment="Stretch" />
+        <Button Margin="0,0,0,10"
+                Padding="5"
+                Content="Save"
+                Command="{Binding SaveBtn}"
+                HorizontalAlignment="Center" />
+    </StackPanel>
+</UserControl>
